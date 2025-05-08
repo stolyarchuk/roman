@@ -228,10 +228,18 @@ h2 {
   text-underline-offset: 2px;
   font-weight: 600;
 }
+.profile-banner {
+  display: none;
+}
 @media (max-width: 690px) {
+  body {
+    font-size: 0.98rem;
+  }
   .container {
-    padding: 18px 4px;
-    gap: 18px;
+    max-width: 100vw;
+    padding: 8px 0 12px 0;
+    gap: 10px;
+    min-height: unset;
   }
   header {
     flex-direction: column;
@@ -240,5 +248,144 @@ h2 {
   }
   .profile-photo {
     margin-top: 0;
+  }
+  .desktop-header {
+    display: none;
+  }
+  .profile-banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 8px auto 24px auto;
+    padding-top: 20px;
+    position: relative;
+    background: none;
+    box-shadow: none;
+    overflow: visible;
+  }
+  .profile-photo-banner {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+    border: 3px solid white;
+    box-shadow: 0 1px 12px rgba(0, 0, 0, 0.15);
+    filter: none;
+    position: relative;
+    z-index: 2;
+  }
+  .profile-banner-info {
+    position: static;
+    width: 100%;
+    margin-top: 16px;
+    padding: 0 16px;
+    background: none;
+    color: var(--fg-main);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .profile-banner-info .profile-name {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--fg-main);
+    text-align: center;
+  }
+  .profile-banner-info .profile-desc {
+    font-size: 1.05rem;
+    color: var(--fg-secondary);
+    margin-bottom: 12px;
+    text-align: center;
+  }
+  .profile-banner-info .icon-list {
+    gap: 16px;
+    margin-top: 4px;
+    flex-wrap: wrap;
+    justify-content: center;
+    display: flex;
+  }
+  .profile-banner-info .icon-link {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--tag-bg);
+    color: var(--fg-main);
+    border: 1px solid var(--border);
+  }
+  .profile-banner-info .icon-link svg {
+    width: 24px;
+    height: 24px;
+  }
+  h2 {
+    font-size: 1.08rem;
+    margin: 18px 0 6px 0;
+  }
+  .section {
+    margin-top: 6px;
+    margin-bottom: 14px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .specializations {
+    font-size: 0.95rem;
+    gap: 5px;
+    margin-bottom: 6px;
+  }
+  .specialization {
+    font-size: 0.93rem;
+    padding: 1px 6px;
+  }
+  .job-title {
+    font-size: 0.99rem;
+  }
+  .job-meta {
+    font-size: 0.88rem;
+    gap: 6px 10px;
+    margin: 8px 0 8px 0;
+  }
+  .job-meta-dates {
+    font-size: 0.8rem;
+    margin-bottom: 6px;
+  }
+  .location-tag {
+    font-size: 11px;
+    padding: 1px 5px;
+  }
+  .work-detail {
+    font-size: 0.93rem;
+    margin-bottom: 2px;
+    margin-top: 1px;
+  }
+  .edu-item {
+    font-size: 0.93rem;
+  }
+  .skills-list {
+    gap: 5px;
+    margin: 2px 0 8px 0;
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+  .skill {
+    font-size: 0.91rem;
+    padding: 2px 7px;
+    border-radius: 6px;
+    margin-bottom: 2px;
+  }
+  .footer {
+    font-size: 0.93rem;
+    margin-top: 18px;
+    margin-bottom: 8px;
+  }
+}
+@media (min-width: 691px) {
+  .profile-banner {
+    display: none !important;
+  }
+  .desktop-header {
+    display: flex !important;
   }
 }
