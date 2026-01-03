@@ -1,0 +1,396 @@
+/* Custom styles for roman-stolyarchuk.html */
+:root {
+  --fg-main: #050914;
+  --fg-secondary: #54575e;
+  --fg-light: #9ca0a8;
+  --fg-link: #48494e;
+  --tag-bg: #eeeff0;
+  --tag-fg: #54575e;
+  --highlight: #18181a;
+  --border: #e5e7eb;
+  --skill-bg: #48494e;
+  --skill-fg: #fff;
+}
+body {
+  background: #fff;
+  font-family: "JetBrains Mono", monospace, "Fira Mono", "Menlo", "Consolas",
+    "Liberation Mono", "Courier New", monospace;
+  color: var(--fg-main);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 48px 18px 24px 18px;
+  background: #fff;
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 40px;
+}
+.profile-block {
+  flex: 1;
+  min-width: 0;
+}
+.profile-name {
+  font-family: "Inter", sans-serif;
+  font-size: 2.1rem;
+  font-weight: 700;
+  margin: 0 0 6px 0;
+  letter-spacing: 0.01em;
+  line-height: 1.225;
+}
+.profile-desc {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--fg-light);
+  margin-bottom: 3px;
+  max-width: 70ch;
+}
+.profile-location {
+  font-size: 0.93rem;
+  color: var(--fg-light);
+  margin-bottom: 6px;
+  letter-spacing: 0.05em;
+}
+.icon-list {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+}
+.icon-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  color: var(--fg-light);
+  background: #fff;
+  transition: background 0.15s, color 0.15s;
+  text-decoration: none;
+}
+.icon-link:hover {
+  background: var(--tag-bg);
+  color: var(--fg-main);
+}
+.icon-link svg,
+.icon-link i {
+  width: 16px;
+  height: 16px;
+  font-size: 16px;
+  fill: currentColor;
+  color: currentColor;
+  display: block;
+}
+.profile-photo {
+  width: 116px;
+  height: 116px;
+  border-radius: 100%;
+  object-fit: cover;
+  border: 2.5px solid var(--border);
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+h2 {
+  font-family: "Inter", sans-serif;
+  font-size: 1.36rem;
+  font-weight: 700;
+  margin: 24px 0 8px 0;
+}
+.section {
+  margin-top: 10px;
+  margin-bottom: 22px;
+}
+.section label,
+.section-title {
+  display: block;
+  font-size: 0.98rem;
+  font-family: inherit;
+  color: var(--fg-secondary);
+  margin-bottom: 5px;
+}
+.personal-info {
+  color: var(--fg-secondary);
+  font-size: 0.98rem;
+  margin: 1px 0 9px 0;
+}
+.specializations {
+  color: var(--fg-secondary);
+  font-size: 1rem;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.specialization {
+  background: var(--tag-bg);
+  color: var(--fg-secondary);
+  padding: 1.5px 8px;
+  border-radius: 5px;
+  font-size: 0.98rem;
+}
+.work-section {
+  margin-bottom: 18px;
+}
+.work-item {
+  margin-bottom: 20px;
+}
+.job-title {
+  font-weight: 700;
+  font-size: 1.06rem;
+  margin-bottom: 0.5px;
+  font-family: "Inter", monospace;
+  color: var(--highlight);
+}
+.job-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 17px;
+  font-size: 0.93rem;
+  color: var(--fg-secondary);
+  margin: 12px 0 12px 0; /* Increased spacing above and below */
+  align-items: center;
+}
+.job-meta-dates {
+  font-size: 0.85rem;
+  color: var(--fg-light);
+  margin-top: -6px;
+  margin-bottom: 10px;
+  margin-left: 0;
+}
+.location-tag {
+  background: var(--tag-bg);
+  color: var(--tag-fg);
+  border-radius: 6px;
+  font-size: 12px;
+  padding: 1px 7px;
+  display: inline-block;
+  font-weight: 600;
+  margin-right: 2px;
+  line-height: 1.5;
+}
+.work-detail {
+  color: var(--fg-secondary);
+  font-size: 0.99rem;
+  margin-bottom: 3px;
+  margin-top: 1.5px;
+  line-height: 1.5;
+}
+.edu-list {
+  padding-left: 0;
+  margin: 5px 0 0 0;
+}
+.edu-item {
+  list-style-type: none;
+  margin-bottom: 4px;
+  color: var(--fg-secondary);
+  font-size: 0.99rem;
+}
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  padding: 0;
+  margin: 3px 0 12px 0;
+}
+.skill {
+  display: inline-flex;
+  align-items: center;
+  background: var(--skill-bg);
+  color: var(--skill-fg);
+  border-radius: 7px;
+  font-size: 0.96rem;
+  padding: 3px 10px;
+  font-family: "JetBrains Mono", monospace;
+  margin-bottom: 3px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+.footer {
+  text-align: center;
+  color: var(--fg-secondary);
+  font-size: 0.98rem;
+  margin-top: 28px;
+  margin-bottom: 12px;
+  font-family: "JetBrains Mono", monospace;
+}
+.footer a {
+  color: var(--highlight);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-weight: 600;
+}
+.profile-banner {
+  display: none;
+}
+@media (max-width: 690px) {
+  body {
+    font-size: 0.98rem;
+  }
+  .container {
+    max-width: 100vw;
+    padding: 8px 0 12px 0;
+    gap: 10px;
+    min-height: unset;
+  }
+  header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .profile-photo {
+    margin-top: 0;
+  }
+  .desktop-header {
+    display: none;
+  }
+  .profile-banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 8px auto 24px auto;
+    padding-top: 20px;
+    position: relative;
+    background: none;
+    box-shadow: none;
+    overflow: visible;
+  }
+  .profile-photo-banner {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+    border: 3px solid white;
+    box-shadow: 0 1px 12px rgba(0, 0, 0, 0.15);
+    filter: none;
+    position: relative;
+    z-index: 2;
+  }
+  .profile-banner-info {
+    position: static;
+    width: 100%;
+    margin-top: 16px;
+    padding: 0 16px;
+    background: none;
+    color: var(--fg-main);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .profile-banner-info .profile-name {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--fg-main);
+    text-align: center;
+  }
+  .profile-banner-info .profile-desc {
+    font-size: 1.05rem;
+    color: var(--fg-secondary);
+    margin-bottom: 12px;
+    text-align: center;
+  }
+  .profile-banner-info .icon-list {
+    gap: 16px;
+    margin-top: 4px;
+    flex-wrap: wrap;
+    justify-content: center;
+    display: flex;
+  }
+  .profile-banner-info .icon-link {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--tag-bg);
+    color: var(--fg-main);
+    border: 1px solid var(--border);
+  }
+  .profile-banner-info .icon-link svg,
+  .profile-banner-info .icon-link i {
+    width: 24px;
+    height: 24px;
+    font-size: 24px;
+  }
+  h2 {
+    font-size: 1.08rem;
+    margin: 18px 0 6px 0;
+  }
+  .section {
+    margin-top: 6px;
+    margin-bottom: 14px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .specializations {
+    font-size: 0.95rem;
+    gap: 5px;
+    margin-bottom: 6px;
+  }
+  .specialization {
+    font-size: 0.93rem;
+    padding: 1px 6px;
+  }
+  .job-title {
+    font-size: 0.99rem;
+  }
+  .job-meta {
+    font-size: 0.88rem;
+    gap: 6px 10px;
+    margin: 8px 0 8px 0;
+  }
+  .job-meta-dates {
+    font-size: 0.8rem;
+    margin-bottom: 6px;
+  }
+  .location-tag {
+    font-size: 11px;
+    padding: 1px 5px;
+  }
+  .work-detail {
+    font-size: 0.93rem;
+    margin-bottom: 2px;
+    margin-top: 1px;
+  }
+  .edu-item {
+    font-size: 0.93rem;
+  }
+  .skills-list {
+    gap: 5px;
+    margin: 2px 0 8px 0;
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+  .skill {
+    font-size: 0.91rem;
+    padding: 2px 7px;
+    border-radius: 6px;
+    margin-bottom: 2px;
+  }
+  .footer {
+    font-size: 0.93rem;
+    margin-top: 18px;
+    margin-bottom: 8px;
+  }
+}
+@media (min-width: 691px) {
+  .profile-banner {
+    display: none !important;
+  }
+  .desktop-header {
+    display: flex !important;
+  }
+}
