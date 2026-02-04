@@ -1,0 +1,23 @@
+<!doctype html>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Redirecting…</title>
+<script>
+  (function () {
+    var p = location.pathname;
+    if (p !== "/" && p !== "/index.html") return;
+    try {
+      var lang =
+        (navigator.languages && navigator.languages[0]) ||
+        navigator.language ||
+        "en";
+      var isRu = /^ru\b/i.test(lang);
+      var target = isRu ? "/ru/" : "/en/";
+      location.replace(target + location.search + location.hash);
+    } catch (e) {
+      location.replace("/en/" + location.search + location.hash);
+    }
+  })();
+</script>
+<noscript><meta http-equiv="refresh" content="0; url=/en/" /></noscript>
+<p>Redirecting…</p>
