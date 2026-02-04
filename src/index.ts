@@ -18,7 +18,7 @@ const GetCountryCode = (request: Request): string | null => {
 };
 
 const GetTargetPath = (countryCode: string | null): string => {
-  return countryCode === RU_COUNTRY_CODE ? "/ru/" : "/en/";
+  return countryCode === RU_COUNTRY_CODE ? "/ru/index.html" : "/en/index.html";
 };
 
 export default {
