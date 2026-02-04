@@ -27,7 +27,6 @@ export default {
 
     if (url.pathname === "/" || url.pathname === "/index.html") {
       const countryCode = GetCountryCode(request);
-      console.log(`Detected country code: ${countryCode}`);
       const targetPath = GetTargetPath(countryCode);
       const targetUrl = new URL(targetPath, url);
       targetUrl.search = url.search;
