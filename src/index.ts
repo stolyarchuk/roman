@@ -33,6 +33,17 @@ export default {
       return Response.redirect(targetUrl.toString(), 302);
     }
 
+    const lastSegment = url.pathname.split("/").pop() ?? "";
+    const isFileRequest = lastSegment.includes(".");
+    if (!isFileRequest && url.pathname !== "/") {
+      const indexPath = url.pathname.endsWith("/")
+        ? `${url.pathname}index.html`
+        : `${url.pathname}/index.html`;
+      const indexUrl = new URL(indexPath, url);
+      indexUrl.search = url.search;
+      return env.ASSETS.fetch(new Request(indexUrl.toString(), request));
+    }
+
     return env.ASSETS.fetch(request);
   },
 };
