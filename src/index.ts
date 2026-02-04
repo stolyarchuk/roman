@@ -8,7 +8,13 @@ const RU_COUNTRY_CODE = "RU";
 
 const GetCountryCode = (request: Request): string | null => {
   const headerValue = request.headers.get("cf-ipcountry");
-  return headerValue?.toUpperCase() ?? null;
+  if (headerValue) {
+    return headerValue.toUpperCase();
+  }
+
+  const cfCountry = (request as Request & { cf?: { country?: string } }).cf
+    ?.country;
+  return cfCountry?.toUpperCase() ?? null;
 };
 
 const GetTargetPath = (countryCode: string | null): string => {
@@ -20,7 +26,9 @@ export default {
     const url = new URL(request.url);
 
     if (url.pathname === "/" || url.pathname === "/index.html") {
-      const targetPath = GetTargetPath(GetCountryCode(request));
+      const countryCode = GetCountryCode(request);
+      console.log(`Detected country code: ${countryCode}`);
+      const targetPath = GetTargetPath(countryCode);
       const targetUrl = new URL(targetPath, url);
       targetUrl.search = url.search;
       return Response.redirect(targetUrl.toString(), 302);
