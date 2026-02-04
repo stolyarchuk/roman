@@ -42,6 +42,18 @@ header {
   flex: 1;
   min-width: 0;
 }
+
+/* Inline language switcher with profile name on desktop */
+.profile-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+.profile-top .lang-switcher {
+  margin-left: auto; /* push to the right */
+  font-size: 0.9rem;
+}
 .profile-name {
   font-family: "Inter", sans-serif;
   font-size: 2.1rem;
@@ -413,5 +425,38 @@ h2 {
   }
   .desktop-header {
     display: flex !important;
+  }
+}
+/* Lang switcher: small pill buttons */
+.lang-switcher {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 0.9rem;
+}
+.lang-switcher .lang {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  color: inherit;
+  text-decoration: none;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  font-weight: 600;
+  transition:
+    transform 0.12s,
+    box-shadow 0.12s;
+}
+.lang-switcher .lang:hover {
+  transform: translateY(-1px);
+}
+.lang-switcher .lang.active {
+  background: #111;
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
+}
+/* Mobile spacing */
+@media (max-width: 690px) {
+  .profile-banner-info .lang-switcher {
+    margin-top: 8px;
   }
 }
