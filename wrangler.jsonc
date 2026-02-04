@@ -8,5 +8,8 @@
   },
   "observability": {
     "enabled": false
+  },
+  "placement": {
+    "mode": "smart"
   }
 }
