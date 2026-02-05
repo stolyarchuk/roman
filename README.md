@@ -19,7 +19,7 @@ npm run build
 
 ```bash
 npm run build
-npx run preview
+npm run preview
 ```
 
 ## Worker preview
