@@ -1,23 +1,43 @@
 <!doctype html>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Redirecting…</title>
-<script>
-  (function () {
-    var p = location.pathname;
-    if (p !== "/" && p !== "/index.html") return;
-    try {
-      var lang =
-        (navigator.languages && navigator.languages[0]) ||
-        navigator.language ||
-        "en";
-      var isRu = /^ru\b/i.test(lang);
-      var target = isRu ? "/ru/" : "/en/";
-      location.replace(target + location.search + location.hash);
-    } catch (e) {
-      location.replace("/en/" + location.search + location.hash);
-    }
-  })();
-</script>
-<noscript><meta http-equiv="refresh" content="0; url=/en/" /></noscript>
-<p>Redirecting…</p>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Roman Stolyarchuk - CV</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Inter:400,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/assets/roman-stolyarchuk.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/iconoir-icons/iconoir@main/css/iconoir.css"
+    />
+    <meta property="og:title" content="Roman Stolyarchuk - CV" />
+    <meta
+      property="og:description"
+      content="C++/Python Software Engineer | Software and AI"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://roman.stolyarch.uk/en/" />
+    <meta
+      property="og:image"
+      content="https://roman.stolyarch.uk/assets/photo.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Roman Stolyarchuk - CV" />
+    <meta name="twitter:description" content="IT Engineer" />
+    <meta
+      name="twitter:image"
+      content="https://roman.stolyarch.uk/assets/photo.png"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
