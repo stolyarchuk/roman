@@ -1,0 +1,39 @@
+{
+  "links": [
+    {
+      "key": "github",
+      "href": "https://github.com/stolyarchuk",
+      "icon": "iconoir-github",
+      "titleEn": "GitHub",
+      "titleRu": "GitHub"
+    },
+    {
+      "key": "telegram",
+      "href": "https://stolyarchuk.t.me",
+      "icon": "iconoir-telegram",
+      "titleEn": "Telegram",
+      "titleRu": "Telegram"
+    },
+    {
+      "key": "email",
+      "href": "mailto:roman@stolyarch.uk",
+      "icon": "iconoir-mail",
+      "titleEn": "Email",
+      "titleRu": "Эл. почта"
+    },
+    {
+      "key": "linkedin",
+      "href": "https://linkedin.com/in/romanstolyarchuk",
+      "icon": "iconoir-linkedin",
+      "titleEn": "LinkedIn",
+      "titleRu": "LinkedIn"
+    },
+    {
+      "key": "gitlab",
+      "href": "https://gitlab.com/stolyarchuk",
+      "icon": "iconoir-gitlab-full",
+      "titleEn": "GitLab",
+      "titleRu": "GitLab"
+    }
+  ]
+}

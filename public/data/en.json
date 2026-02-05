@@ -1,0 +1,158 @@
+{
+  "jobs": [
+    {
+      "title": "Senior C++ Developer",
+      "sector": "Cyber Security (DDoS protection)",
+      "location": "Moscow, Russia",
+      "dates": "March 2024 - March 2025 (1 yr)",
+      "sections": [
+        {
+          "bullets": [
+            "Development of Anti-DDoS Software (Linux, C++20, DPDK, GTest)",
+            "Development of SDN components (Control/Data Plane) using NVIDIA DOCA Flow and DPDK (Linux, C++23).",
+            "Profiling and optimization of the software for high bandwidth networks utilization (Intel vTune)",
+            "Configuring host OS for high performance (CPU/IRQ isolation, HugePages management, NUMA)",
+            "LLM research: using LLM for network anomaly detection"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Senior R&D Engineer (C++, Python)",
+      "sector": "Higher Education / Research (University)",
+      "location": "Kazan, Russia",
+      "dates": "July 2020 - May 2024 (3 yrs 10 mo)",
+      "sections": [
+        {
+          "heading": "Robotics Laboratory (Robotic surgical complex project):",
+          "bullets": [
+            "Software architecture design",
+            "Software development: Linux, C/C++, gRPC, Qt, Boost, Gstreamer, Python, PostgreSQL",
+            "Software testing: Catch2, GTest",
+            "Assembly and configuration of server equipment: Linux",
+            "Configuration of L2/L3 network equipment: Mikrotik",
+            "Dev Team leadership",
+            "Interaction with project customers",
+            "Project documentation management"
+          ]
+        },
+        {
+          "heading": "Unmanned Systems Laboratory:",
+          "bullets": [
+            "Design of unmanned transport systems",
+            "Development of packages for ROS1 and ROS2: C/C++, Python",
+            {
+              "text": "Development of software for constructing and analyzing digital terrain models based on LiDAR data (State Certificate No. 2021681296 dated 27.12.2021):",
+              "links": [
+                {
+                  "label": "rosrid.ru",
+                  "href": "https://rosrid.ru/rid/detail/CKPKFL7T1LYF11BC1TIWV9WE"
+                },
+                {
+                  "label": "PDF",
+                  "href": "/assets/n2021681861.pdf"
+                }
+              ]
+            },
+            "Project documentation management"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "C++/Python Developer",
+      "sector": "Information Technology / System Integration",
+      "location": "Saint Petersburg, Russia",
+      "dates": "June 2019 - June 2020 (1 yr 1 mo)",
+      "sections": [
+        {
+          "bullets": [
+            "Development of computer vision applications using neural networks and media applications (C/C++)",
+            "Backend for a multipurpose neural network platform (Linux/C++/ZeroMQ/Boost/OpenCV CUDA DNN/TensorRT)",
+            "\"Smart\" cameras on RPi and Nvidia Jetson (OpenVino/OpenCV, TensorRT/OpenCV)",
+            "Video players for RPi (Qt5/libvlc)",
+            "Modules for Python in C++ (Pybind11)",
+            "Enhancement of the OpenCV library (patch for selecting Nvidia GPU in FFMpeg backend)",
+            "Development of deploy scripts: Gitlab CI/CD"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "System Engineer / C++ Programmer",
+      "sector": "Security Services / Monitoring",
+      "location": "Saint Petersburg, Russia",
+      "dates": "Feb 2012 - Nov 2018 (6 yrs 10 mo)",
+      "sections": [
+        {
+          "bullets": [
+            "Design, development, and ensuring uninterrupted operation of internal and external client services, including the AN-Direct monitoring center",
+            "Design and installation of new server rooms, installation of backup power systems for server racks",
+            "Installation, configuration, support, and monitoring of server infrastructure for the office and the entire holding: Linux, FreeBSD, Windows",
+            "Unification of regional offices into a single network with the central offices in Saint Petersburg",
+            "Organization of centralized data backup",
+            "Design, configuration, and implementation of a distributed IP telephony server system",
+            "Development of internal company software for Linux (server for receiving and processing messages from control panel equipment and GPS trackers, Asterisk ARI applications): C/C++, Python3, Vue.js2"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "System Engineer",
+      "sector": "Telecom / Network Services",
+      "location": "Balakovo, Russia",
+      "dates": "June 2009 - Nov 2011 (2 yrs 6 mo)",
+      "sections": [
+        {
+          "bullets": [
+            "Ensuring uninterrupted operation of the company's data transmission system in Balakovo: server infrastructure (FreeBSD, Linux), fiber optic lines, radio links (Infinet, Ubiquiti), network switches, VoIP equipment, dynamic routing (RIP, BGP)",
+            "Implementation of monitoring/alerting system: Zabbix, Cacti, MRTG",
+            "Assembly, installation, support of network service servers and firewalls; virtual machines, VoIP gateways, L2 switches, Asterisk IP-PBX",
+            "Comprehensive projects for new client connections \"turnkey\"; mounting team leadership",
+            "Project/internal documentation management"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "System Administrator",
+      "sector": "Communications / Network Services",
+      "location": "Moscow, Russia",
+      "dates": "July 2005 - Nov 2005 (5 mo)",
+      "sections": [
+        {
+          "bullets": [
+            "Organization of VPN tunnels between corporate internet servers",
+            "User support in corporate network (MS Office, OpenOffice, Adobe Products)",
+            "PC installation/deployment, config (Win 2000/XP) ~40 machines",
+            "Twisted pair network cabling (EIA/TIA-568A, EIA/TIA-568B)",
+            "Corporate website support/update",
+            "Technical support for events",
+            "Repair/modernization of computers",
+            "Office equipment support & purchase"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "System Administrator",
+      "sector": "IT Services / Web Development",
+      "location": "Balakovo, Russia",
+      "dates": "July 2004 - Jan 2005 (7 mo)",
+      "sections": [
+        {
+          "bullets": [
+            "Reorganization of the computer network (workgroups -> domain)",
+            "Installation/support of corporate servers (MySQL, DHCP, File, Web, Internet Gate)",
+            "User support/corporate network (MS Office)",
+            "OS install/deploy/config (Win 2000/XP) ~120 machines",
+            "Twisted pair network cabling (EIA/TIA-568A, EIA/TIA-568B)",
+            "Corporate website maintenance",
+            "Repair/modernization of computers",
+            "Office equipment procurement"
+          ]
+        }
+      ]
+    }
+  ]
+}

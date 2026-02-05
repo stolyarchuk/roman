@@ -18,7 +18,7 @@ const GetCountryCode = (request: Request): string | null => {
 };
 
 const GetTargetPath = (countryCode: string | null): string => {
-  return countryCode === RU_COUNTRY_CODE ? "/ru/index.html" : "/en/index.html";
+  return countryCode === RU_COUNTRY_CODE ? "/ru/" : "/en/";
 };
 
 export default {
@@ -35,15 +35,12 @@ export default {
 
     const lastSegment = url.pathname.split("/").pop() ?? "";
     const isFileRequest = lastSegment.includes(".");
-    if (!isFileRequest && url.pathname !== "/") {
-      const indexPath = url.pathname.endsWith("/")
-        ? `${url.pathname}index.html`
-        : `${url.pathname}/index.html`;
-      const indexUrl = new URL(indexPath, url);
-      indexUrl.search = url.search;
-      return env.ASSETS.fetch(new Request(indexUrl.toString(), request));
+    if (isFileRequest) {
+      return env.ASSETS.fetch(request);
     }
 
-    return env.ASSETS.fetch(request);
+    const indexUrl = new URL("/index.html", url);
+    indexUrl.search = url.search;
+    return env.ASSETS.fetch(new Request(indexUrl.toString(), request));
   },
 };
