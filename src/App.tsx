@@ -1,46 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { contentByLocale, LocaleKey } from "./content";
+import { normalizeLocalePath } from "./locale";
 import { JobBullet, JobData, JobItem, SocialData, SocialLink } from "./types";
-
-const RU_PREFIX = "/ru";
-const EN_PREFIX = "/en";
-
-const getBrowserLocale = (): LocaleKey => {
-  const language =
-    (navigator.languages && navigator.languages[0]) ||
-    navigator.language ||
-    "en";
-  return /^ru\b/i.test(language) ? "ru" : "en";
-};
-
-const getLocaleFromPath = (): LocaleKey | null => {
-  const path = window.location.pathname.toLowerCase();
-  if (path.startsWith(RU_PREFIX)) {
-    return "ru";
-  }
-  if (path.startsWith(EN_PREFIX)) {
-    return "en";
-  }
-  return null;
-};
-
-const getLocale = (): LocaleKey => getLocaleFromPath() ?? getBrowserLocale();
-
-const normalizeLocalePath = (locale: LocaleKey): string => `/${locale}/`;
-
-const updatePathIfNeeded = (locale: LocaleKey, replace = false): void => {
-  const desiredPath = normalizeLocalePath(locale);
-  const currentUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`;
-  const nextUrl = `${desiredPath}${window.location.search}${window.location.hash}`;
-  if (currentUrl === nextUrl) {
-    return;
-  }
-  if (replace) {
-    window.history.replaceState({}, "", nextUrl);
-    return;
-  }
-  window.history.pushState({}, "", nextUrl);
-};
 
 const updateMeta = (locale: LocaleKey): void => {
   const meta = contentByLocale[locale].meta;
@@ -88,8 +50,13 @@ const renderBullet = (bullet: JobBullet, index: number): JSX.Element => {
   );
 };
 
-const App = (): JSX.Element => {
-  const [locale, setLocale] = useState<LocaleKey>(getLocale);
+type AppProps = {
+  locale: LocaleKey;
+};
+
+const App = ({ locale }: AppProps): JSX.Element => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [jobs, setJobs] = useState<JobItem[]>([]);
   const [socialLinks, setSocialLinks] = useState<SocialLink[]>([]);
   const [jobsStatus, setJobsStatus] = useState<"loading" | "ready" | "error">(
@@ -97,10 +64,17 @@ const App = (): JSX.Element => {
   );
 
   useEffect(() => {
-    const initialLocale = getLocale();
-    setLocale(initialLocale);
-    updatePathIfNeeded(initialLocale, true);
-  }, []);
+    if (location.pathname === `/${locale}`) {
+      navigate(
+        {
+          pathname: normalizeLocalePath(locale),
+          search: location.search,
+          hash: location.hash,
+        },
+        { replace: true },
+      );
+    }
+  }, [locale, location.hash, location.pathname, location.search, navigate]);
 
   useEffect(() => {
     updateMeta(locale);
@@ -139,21 +113,14 @@ const App = (): JSX.Element => {
       });
   }, []);
 
-  useEffect(() => {
-    const onPopState = (): void => {
-      const nextLocale = getLocale();
-      setLocale(nextLocale);
-    };
-
-    window.addEventListener("popstate", onPopState);
-    return () => window.removeEventListener("popstate", onPopState);
-  }, []);
-
   const content = useMemo(() => contentByLocale[locale], [locale]);
 
   const onLocaleChange = (nextLocale: LocaleKey): void => {
-    setLocale(nextLocale);
-    updatePathIfNeeded(nextLocale);
+    navigate({
+      pathname: normalizeLocalePath(nextLocale),
+      search: location.search,
+      hash: location.hash,
+    });
   };
 
   const renderSocialLinks = (): JSX.Element => (
