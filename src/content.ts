@@ -3,7 +3,9 @@ export type LocaleKey = "en" | "ru";
 type MetaContent = {
   title: string;
   description: string;
+  keywords: string;
   ogUrl: string;
+  canonical: string;
   twitterDescription: string;
   ogImage: string;
 };
@@ -94,10 +96,14 @@ export const contentByLocale: Record<LocaleKey, LocaleContent> = {
       linkHref: "https://roman.stolyarch.uk",
     },
     meta: {
-      title: "Roman Stolyarchuk - CV",
-      description: "C++/Python Software Engineer | Software and AI",
+      title: "Roman Stolyarchuk — C++/Python Software Engineer | CV",
+      description:
+        "C++/Python Software Engineer focused on systems, AI, and backend development.",
+      keywords:
+        "C++, C++ developer, Python, software engineer, IT engineer, backend, systems, AI",
       ogUrl: "https://roman.stolyarch.uk/en/",
-      twitterDescription: "IT Engineer",
+      canonical: "https://roman.stolyarch.uk/en/",
+      twitterDescription: "C++/Python Software Engineer",
       ogImage: "https://roman.stolyarch.uk/assets/photo.png",
     },
   },
@@ -158,10 +164,13 @@ export const contentByLocale: Record<LocaleKey, LocaleContent> = {
       linkHref: "https://roman.stolyarch.uk",
     },
     meta: {
-      title: "Роман Столярчук — Резюме",
-      description: "Инженер C++/Python | Программное обеспечение и ИИ",
+      title: "Роман Столярчук — C++/Python разработчик | Резюме",
+      description: "C++/Python разработчик: системы, backend и ИИ-решения.",
+      keywords:
+        "C++, C++ разработчик, Python, инженер, IT, backend, системы, ИИ",
       ogUrl: "https://roman.stolyarch.uk/ru/",
-      twitterDescription: "IT-инженер",
+      canonical: "https://roman.stolyarch.uk/ru/",
+      twitterDescription: "C++/Python разработчик",
       ogImage: "https://roman.stolyarch.uk/assets/photo.png",
     },
   },

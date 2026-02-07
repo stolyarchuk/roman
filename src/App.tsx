@@ -4,30 +4,107 @@ import { contentByLocale, LocaleKey } from "./content";
 import { normalizeLocalePath } from "./locale";
 import { JobBullet, JobData, JobItem, SocialData, SocialLink } from "./types";
 
-const updateMeta = (locale: LocaleKey): void => {
-  const meta = contentByLocale[locale].meta;
-  document.title = meta.title;
-  document.documentElement.lang = contentByLocale[locale].htmlLang;
+const DEFAULT_SAME_AS = [
+  "https://github.com/stolyarchuk",
+  "https://stolyarchuk.t.me",
+  "https://linkedin.com/in/romanstolyarchuk",
+  "https://gitlab.com/stolyarchuk",
+];
 
-  const updates: Array<{ selector: string; content: string }> = [
-    { selector: 'meta[property="og:title"]', content: meta.title },
-    { selector: 'meta[property="og:description"]', content: meta.description },
-    { selector: 'meta[property="og:url"]', content: meta.ogUrl },
-    { selector: 'meta[property="og:image"]', content: meta.ogImage },
-    { selector: 'meta[name="twitter:title"]', content: meta.title },
-    {
-      selector: 'meta[name="twitter:description"]',
-      content: meta.twitterDescription,
-    },
-    { selector: 'meta[name="twitter:image"]', content: meta.ogImage },
-  ];
+const upsertMeta = (
+  attr: "name" | "property",
+  key: string,
+  content: string,
+): void => {
+  const selector = `meta[${attr}="${key}"]`;
+  let element = document.querySelector<HTMLMetaElement>(selector);
+  if (!element) {
+    element = document.createElement("meta");
+    element.setAttribute(attr, key);
+    document.head.appendChild(element);
+  }
+  element.setAttribute("content", content);
+};
 
-  updates.forEach(({ selector, content }) => {
-    const element = document.querySelector<HTMLMetaElement>(selector);
-    if (element) {
-      element.setAttribute("content", content);
+const upsertLink = (rel: string, href: string, hreflang?: string): void => {
+  const selector = hreflang
+    ? `link[rel="${rel}"][hreflang="${hreflang}"]`
+    : `link[rel="${rel}"]:not([hreflang])`;
+  let element = document.querySelector<HTMLLinkElement>(selector);
+  if (!element) {
+    element = document.createElement("link");
+    element.setAttribute("rel", rel);
+    if (hreflang) {
+      element.setAttribute("hreflang", hreflang);
     }
-  });
+    document.head.appendChild(element);
+  }
+  element.setAttribute("href", href);
+};
+
+const upsertJsonLd = (id: string, data: object): void => {
+  let element = document.getElementById(id) as HTMLScriptElement | null;
+  if (!element) {
+    element = document.createElement("script");
+    element.type = "application/ld+json";
+    element.id = id;
+    document.head.appendChild(element);
+  }
+  element.textContent = JSON.stringify(data);
+};
+
+const updateMeta = (locale: LocaleKey, sameAs?: string[]): void => {
+  const content = contentByLocale[locale];
+  const meta = content.meta;
+  const baseUrl = "https://roman.stolyarch.uk";
+  const filteredSameAs = (sameAs ?? DEFAULT_SAME_AS).filter((url) =>
+    url.startsWith("http"),
+  );
+
+  document.title = meta.title;
+  document.documentElement.lang = content.htmlLang;
+
+  upsertMeta("name", "description", meta.description);
+  upsertMeta("name", "keywords", meta.keywords);
+  upsertMeta("name", "robots", "index,follow");
+  upsertMeta("property", "og:title", meta.title);
+  upsertMeta("property", "og:description", meta.description);
+  upsertMeta("property", "og:url", meta.ogUrl);
+  upsertMeta("property", "og:image", meta.ogImage);
+  upsertMeta("property", "og:type", "website");
+  upsertMeta("name", "twitter:title", meta.title);
+  upsertMeta("name", "twitter:description", meta.twitterDescription);
+  upsertMeta("name", "twitter:image", meta.ogImage);
+  upsertMeta("name", "twitter:card", "summary_large_image");
+
+  upsertLink("canonical", meta.canonical);
+  upsertLink("alternate", `${baseUrl}/en/`, "en");
+  upsertLink("alternate", `${baseUrl}/ru/`, "ru");
+  upsertLink("alternate", `${baseUrl}/en/`, "x-default");
+
+  const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: content.name,
+    url: meta.canonical,
+    image: meta.ogImage,
+    jobTitle: content.role,
+    sameAs: filteredSameAs,
+  };
+
+  const profileSchema = {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    name: meta.title,
+    url: meta.canonical,
+    about: {
+      "@type": "Person",
+      name: content.name,
+    },
+  };
+
+  upsertJsonLd("schema-person", personSchema);
+  upsertJsonLd("schema-profile", profileSchema);
 };
 
 const renderBullet = (bullet: JobBullet, index: number): JSX.Element => {
@@ -80,7 +157,11 @@ const App = ({ locale, initialData }: AppProps): JSX.Element => {
   }, [locale, location.hash, location.pathname, location.search, navigate]);
 
   useEffect(() => {
-    updateMeta(locale);
+    const sameAs = socialLinks.map((link) => link.href);
+    updateMeta(locale, sameAs);
+  }, [locale, socialLinks]);
+
+  useEffect(() => {
     // If we already have jobs from SSR, skip fetching
     if (initialData?.jobs) {
       return;

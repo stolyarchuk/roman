@@ -188,7 +188,53 @@ export async function handleRequest(
   };
   const safeInitialData = JSON.stringify(initialData).replace(/</g, "\\u003c");
 
-  const prefix = `<!doctype html><html lang="${contentByLocale[locale].htmlLang}"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>${meta.title}</title><meta name="description" content="${meta.description}" /><meta property="og:title" content="${meta.title}" /><meta property="og:description" content="${meta.description}" /><meta property="og:url" content="${meta.ogUrl}" /><meta property="og:image" content="${meta.ogImage}" /><meta name="twitter:title" content="${meta.title}" /><meta name="twitter:description" content="${meta.twitterDescription}" /><meta name="twitter:image" content="${meta.ogImage}" /><link rel="stylesheet" href="/assets/roman-stolyarchuk.css" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iconoir-icons/iconoir@main/css/iconoir.css" /><link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />${cssFiles.map((href) => `<link rel="stylesheet" href="${href}"/>`).join("")}<script>window.__INITIAL_LOCALE__ = "${locale}"; window.__INITIAL_DATA__ = ${safeInitialData}</script></head><body><div id="root">`;
+  const baseUrl = "https://roman.stolyarch.uk";
+  const hreflangLinks = [
+    `<link rel="canonical" href="${meta.canonical}"/>`,
+    `<link rel="alternate" hreflang="en" href="${baseUrl}/en/"/>`,
+    `<link rel="alternate" hreflang="ru" href="${baseUrl}/ru/"/>`,
+    `<link rel="alternate" hreflang="x-default" href="${baseUrl}/en/"/>`,
+  ].join("");
+
+  const sameAs = Array.isArray(socialData)
+    ? socialData
+        .map((link: { href?: string }) => link.href)
+        .filter((href: string | undefined): href is string =>
+          Boolean(href && href.startsWith("http")),
+        )
+    : [];
+
+  const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: contentByLocale[locale].name,
+    url: meta.canonical,
+    image: meta.ogImage,
+    jobTitle: contentByLocale[locale].role,
+    sameAs,
+  };
+
+  const profileSchema = {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    name: meta.title,
+    url: meta.canonical,
+    about: {
+      "@type": "Person",
+      name: contentByLocale[locale].name,
+    },
+  };
+
+  const safePersonSchema = JSON.stringify(personSchema).replace(
+    /</g,
+    "\\u003c",
+  );
+  const safeProfileSchema = JSON.stringify(profileSchema).replace(
+    /</g,
+    "\\u003c",
+  );
+
+  const prefix = `<!doctype html><html lang="${contentByLocale[locale].htmlLang}"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>${meta.title}</title><meta name="description" content="${meta.description}" /><meta name="keywords" content="${meta.keywords}" /><meta name="robots" content="index,follow" /><meta property="og:title" content="${meta.title}" /><meta property="og:description" content="${meta.description}" /><meta property="og:type" content="website" /><meta property="og:url" content="${meta.ogUrl}" /><meta property="og:image" content="${meta.ogImage}" /><meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content="${meta.title}" /><meta name="twitter:description" content="${meta.twitterDescription}" /><meta name="twitter:image" content="${meta.ogImage}" />${hreflangLinks}<link rel="stylesheet" href="/assets/roman-stolyarchuk.css" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iconoir-icons/iconoir@main/css/iconoir.css" /><link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:400,700&display=swap" /><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" />${cssFiles.map((href) => `<link rel="stylesheet" href="${href}"/>`).join("")}<script type="application/ld+json" id="schema-person">${safePersonSchema}</script><script type="application/ld+json" id="schema-profile">${safeProfileSchema}</script><script>window.__INITIAL_LOCALE__ = "${locale}"; window.__INITIAL_DATA__ = ${safeInitialData}</script></head><body><div id="root">`;
 
   const suffix = `</div><script type="module" src="${clientScript}"></script></body></html>`;
 
