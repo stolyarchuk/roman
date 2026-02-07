@@ -183,6 +183,7 @@ export async function handleRequest(
 
   // Inject initial data into page as serialized JSON
   const initialData = {
+    locale,
     jobs: jobsData,
     social: socialData,
   };
