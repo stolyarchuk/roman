@@ -52,15 +52,18 @@ const renderBullet = (bullet: JobBullet, index: number): JSX.Element => {
 
 type AppProps = {
   locale: LocaleKey;
+  initialData?: { jobs?: JobItem[]; social?: SocialLink[] };
 };
 
-const App = ({ locale }: AppProps): JSX.Element => {
+const App = ({ locale, initialData }: AppProps): JSX.Element => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [jobs, setJobs] = useState<JobItem[]>([]);
-  const [socialLinks, setSocialLinks] = useState<SocialLink[]>([]);
+  const [jobs, setJobs] = useState<JobItem[]>(initialData?.jobs ?? []);
+  const [socialLinks, setSocialLinks] = useState<SocialLink[]>(
+    initialData?.social ?? [],
+  );
   const [jobsStatus, setJobsStatus] = useState<"loading" | "ready" | "error">(
-    "loading",
+    initialData?.jobs ? "ready" : "loading",
   );
 
   useEffect(() => {
@@ -78,6 +81,11 @@ const App = ({ locale }: AppProps): JSX.Element => {
 
   useEffect(() => {
     updateMeta(locale);
+    // If we already have jobs from SSR, skip fetching
+    if (initialData?.jobs) {
+      return;
+    }
+
     setJobsStatus("loading");
 
     fetch(`/data/${locale}.json`)
@@ -95,9 +103,14 @@ const App = ({ locale }: AppProps): JSX.Element => {
         setJobs([]);
         setJobsStatus("error");
       });
-  }, [locale]);
+  }, [locale, initialData]);
 
   useEffect(() => {
+    // If we already have social links from SSR, skip fetching
+    if (initialData?.social) {
+      return;
+    }
+
     fetch("/data/social.json")
       .then((response) => {
         if (!response.ok) {
@@ -111,7 +124,7 @@ const App = ({ locale }: AppProps): JSX.Element => {
       .catch(() => {
         setSocialLinks([]);
       });
-  }, []);
+  }, [initialData]);
 
   const content = useMemo(() => contentByLocale[locale], [locale]);
 

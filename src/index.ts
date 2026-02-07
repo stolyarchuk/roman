@@ -21,10 +21,13 @@ const GetTargetPath = (countryCode: string | null): string => {
   return countryCode === RU_COUNTRY_CODE ? "/ru/" : "/en/";
 };
 
+import { handleRequest } from "./entry-server";
+
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
 
+    // Keep the redirect for the root path for fast geo-redirects
     if (url.pathname === "/" || url.pathname === "/index.html") {
       const countryCode = GetCountryCode(request);
       const targetPath = GetTargetPath(countryCode);
@@ -39,8 +42,14 @@ export default {
       return env.ASSETS.fetch(request);
     }
 
-    const indexUrl = new URL("/index.html", url);
-    indexUrl.search = url.search;
-    return env.ASSETS.fetch(new Request(indexUrl.toString(), request));
+    // Delegate non-file requests to the SSR handler
+    try {
+      return await handleRequest(request, env);
+    } catch (err) {
+      // Fallback: serve index.html via assets binding to preserve SPA behavior
+      const indexUrl = new URL("/index.html", url);
+      indexUrl.search = url.search;
+      return env.ASSETS.fetch(new Request(indexUrl.toString(), request));
+    }
   },
 };
