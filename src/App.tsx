@@ -127,20 +127,30 @@ const renderBullet = (bullet: JobBullet, index: number): JSX.Element => {
   );
 };
 
+type InitialData = {
+  locale: LocaleKey;
+  jobs?: JobItem[] | null;
+  social?: SocialLink[] | null;
+};
+
 type AppProps = {
   locale: LocaleKey;
-  initialData?: { jobs?: JobItem[]; social?: SocialLink[] };
+  initialData?: InitialData;
 };
 
 const App = ({ locale, initialData }: AppProps): JSX.Element => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [jobs, setJobs] = useState<JobItem[]>(initialData?.jobs ?? []);
+  const hasInitialJobs =
+    initialData?.locale === locale && Array.isArray(initialData?.jobs);
+  const [jobs, setJobs] = useState<JobItem[]>(
+    hasInitialJobs ? (initialData?.jobs as JobItem[]) : [],
+  );
   const [socialLinks, setSocialLinks] = useState<SocialLink[]>(
     initialData?.social ?? [],
   );
   const [jobsStatus, setJobsStatus] = useState<"loading" | "ready" | "error">(
-    initialData?.jobs ? "ready" : "loading",
+    hasInitialJobs ? "ready" : "loading",
   );
 
   useEffect(() => {
@@ -163,7 +173,7 @@ const App = ({ locale, initialData }: AppProps): JSX.Element => {
 
   useEffect(() => {
     // If we already have jobs from SSR, skip fetching
-    if (initialData?.jobs) {
+    if (hasInitialJobs) {
       return;
     }
 
@@ -184,7 +194,7 @@ const App = ({ locale, initialData }: AppProps): JSX.Element => {
         setJobs([]);
         setJobsStatus("error");
       });
-  }, [locale, initialData]);
+  }, [locale, hasInitialJobs]);
 
   useEffect(() => {
     // If we already have social links from SSR, skip fetching

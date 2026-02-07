@@ -60,7 +60,10 @@ export function RouterApp({
             <Navigate to={normalizeLocalePath(getBrowserLocale())} replace />
           }
         />
-        <Route path="/:locale/*" element={<LocaleRoute />} />
+        <Route
+          path="/:locale/*"
+          element={<LocaleRoute initialData={initialData} />}
+        />
         <Route
           path="*"
           element={
